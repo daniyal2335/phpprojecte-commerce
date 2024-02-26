@@ -39,6 +39,25 @@ if(isset($_POST['addCart'])){
 		}
 	}
 }
+ //checkout
+ if(isset($_GET['checkout'])){
+  $uId=$_SESSION['userId'];
+  $uName=$_SESSION['userName'];
+  $uEmail=$_SESSION['userEmail'];
+  foreach ($_SESSION['finalCart'] as $value) {
+	$pId=$_value['p_id'];
+	$pName=$_value['p_name'];
+	$pPrice=$_value['p_price'];
+	$pQty=$_value['p_qty'];
+	$pId=$_value['p_id'];
+	$query=$pdo->prepare("insert into orders(u_id,u_name,u_email,p_id,p_name,p_price,p_qty)values(:u_id,:u_name,:u_email,:p_id,:p_name
+	,:p_price,:p_qty)");
+	$query
+  }
+
+
+ }
+
 ?>
 		
 
@@ -209,9 +228,9 @@ if(isset($_POST['addCart'])){
 						<?php 
 						if(isset($_SESSION['userEmail'])){
 						?>
-						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+						<a href="?checkout" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
 							Proceed to Checkout
-						</button>
+						</a>
 						<?php 
 						}
 						else{

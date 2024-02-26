@@ -20,6 +20,7 @@ if(isset($_POST['login'])){
         </script>";
     }
 elseif ($user['role_id'] == 2) {
+    $_SESSION['userId']=$user['id'];
     $_SESSION['userName']=$user['name'];
     $_SESSION['userEmail']=$user['email'];
     echo "<script>alert('login successfully');
