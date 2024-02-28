@@ -44,18 +44,26 @@ if(isset($_POST['addCart'])){
   $uId=$_SESSION['userId'];
   $uName=$_SESSION['userName'];
   $uEmail=$_SESSION['userEmail'];
-  foreach ($_SESSION['finalCart'] as $value) {
-	$pId=$_value['p_id'];
-	$pName=$_value['p_name'];
-	$pPrice=$_value['p_price'];
-	$pQty=$_value['p_qty'];
-	$pId=$_value['p_id'];
+  foreach($_SESSION['finalCart'] as $value) {
+	$pId=$value['p_id'];
+	$pName=$value['p_name'];
+	$pPrice=$value['p_price'];
+	$pQty=$value['p_qty'];
 	$query=$pdo->prepare("insert into orders(u_id,u_name,u_email,p_id,p_name,p_price,p_qty)values(:u_id,:u_name,:u_email,:p_id,:p_name
 	,:p_price,:p_qty)");
-	$query
+	$query->bindParam('u_id',$uId);
+	$query->bindParam('u_name',$uName);
+	$query->bindParam('u_email',$uEmail);
+	$query->bindParam('p_id',$pId);
+	$query->bindParam('p_name',$pName);
+	$query->bindParam('p_price',$pPrice);
+	$query->bindParam('p_qty',$pQty);
+	$query->execute();
+	echo "<script>alert('orders placed successfully')
+	location.assign('index.php')</script>";
+
   }
-
-
+  unset($_SESSION['finalCart']);
  }
 
 ?>
@@ -95,7 +103,7 @@ if(isset($_POST['addCart'])){
 
 							<?php
 							if(isset($_SESSION['finalCart'])){
-								foreach ($_SESSION['finalCart'] as $value) {
+								foreach($_SESSION['finalCart'] as $value) {
 								
 								
 							

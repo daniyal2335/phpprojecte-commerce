@@ -1,6 +1,6 @@
 <?php
-session_start();
 include('adminPanel/dbcon.php');
+session_start();
 ?>
 <?php
 if(isset($_POST['login'])){
@@ -15,16 +15,16 @@ if(isset($_POST['login'])){
     if($user['role_id'] == 1){
         $_SESSION['adminName']=$user['name'];
         $_SESSION['adminEmail']=$user['email'];
-        echo "<script>alert('login successfully');
-        location.assign('adminpanel/index.php.');
+        echo "<script>alert('login successfully')
+        location.assign('adminpanel/index.php')
         </script>";
     }
 elseif ($user['role_id'] == 2) {
     $_SESSION['userId']=$user['id'];
     $_SESSION['userName']=$user['name'];
     $_SESSION['userEmail']=$user['email'];
-    echo "<script>alert('login successfully');
-    location.assign('index.php');
+    echo "<script>alert('login successfully')
+    location.assign('index.php')
     </script>";
 }
 }
