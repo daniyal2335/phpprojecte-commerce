@@ -63,6 +63,21 @@ if(isset($_POST['addCart'])){
 	location.assign('index.php')</script>";
 
   }
+  //invoice
+  $invoice_query=$pdo->prepare("insert into invoice (u_id,u_name,u_email,total_Qty,total_amount)values(:u_id,:u_name,:u_email,:total_products, :total_amount)");
+  $invoice_query->bindParam('u_id',$uId);
+  $invoice_query->bindParam('u_name',$uName);
+  $invoice_query->bindParam('u_email',$uEmail);
+  $totalQty=0;
+  $totalPrice=0;
+  foreach($_SESSION['finalCart'] as $key=> $value){
+	$totalQty +=$value['p_qty'];
+	$totalPrice +=$value['p_price']*$value['p_qty'];
+	$invoice_query->bindParam('total_products',$totalQty);
+	$invoice_query->bindParam('total_amount',$totalPrice);
+  }
+  $invoice_query->execute();
+
   unset($_SESSION['finalCart']);
  }
 

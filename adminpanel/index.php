@@ -2,7 +2,8 @@
 include('query.php');
 include('header.php');
 if(!isset($_SESSION['adminEmail'])){
-    echo "<script>location.assign('index.php')</script>";
+    echo "<script>location.assign('../login.php')
+    </script>";
 }
 ?>
 
@@ -13,8 +14,12 @@ if(!isset($_SESSION['adminEmail'])){
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-line fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Today Sale</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <p class="mb-2">Total Sale</p>
+                                <h6 class="mb-0">Rs:<?php 
+                                $query=$pdo->query("select SUM(p_price) as 'totalAmount' from orders");
+                                $totalPrice=$query->fetch(PDO::FETCH_ASSOC);
+                                echo $totalPrice['totalAmount'];
+                                ?></h6>
                             </div>
                         </div>
                     </div>
@@ -22,8 +27,12 @@ if(!isset($_SESSION['adminEmail'])){
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-bar fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Total Sale</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <p class="mb-2">Total Products</p>
+                                <h6 class="mb-0"><?php 
+                                $query=$pdo->query("select count(id) as 'totalProducts' from products");
+                                $totalProducts=$query->fetch(PDO::FETCH_ASSOC);
+                                echo $totalProducts['totalProducts'];
+                                ?></h6>
                             </div>
                         </div>
                     </div>
@@ -31,8 +40,12 @@ if(!isset($_SESSION['adminEmail'])){
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-area fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Today Revenue</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <p class="mb-2">Today Categories</p>
+                                <h6 class="mb-0"><?php 
+                                $query=$pdo->query("select count(id) as 'totalCategory' from category");
+                                $totalCategories=$query->fetch(PDO::FETCH_ASSOC);
+                                echo $totalCategories['totalCategory'];
+                                ?></h6>
                             </div>
                         </div>
                     </div>
@@ -40,8 +53,13 @@ if(!isset($_SESSION['adminEmail'])){
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-pie fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Total Revenue</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <p class="mb-2">Total users</p>
+                              
+                                <h6 class="mb-0"><?php 
+                                $query=$pdo->query("select count(id) as 'totalUsers' from users");
+                                $totalUsers=$query->fetch(PDO::FETCH_ASSOC);
+                                echo $totalUsers['totalUsers'];
+                                ?></h6>
                             </div>
                         </div>
                     </div>
@@ -73,7 +91,7 @@ if(!isset($_SESSION['adminEmail'])){
                             </thead>
                             <tbody>
                                 <?php 
-                                $query=$pdo->$query("select * from orders");
+                                $query=$pdo->query("select * from orders");
                                 $allOrders=$query->fetchAll(PDO::FETCH_ASSOC);
                                 foreach($allOrders as $order){
                                     
