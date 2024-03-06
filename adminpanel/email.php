@@ -33,7 +33,11 @@ try {
     
 
     $mail->send();
-    echo 'Message has been sent';
+    $email=$_POST['userEmail'];
+    $query=$pdo->prepare("update invoice set status='approved' where u_email=:email");
+    $query->bindParam('email',$email);
+    $query->execute();
+   echo '<script>alert("message has been sent");location.assign("invoice.php");</script>';
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }

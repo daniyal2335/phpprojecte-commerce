@@ -43,12 +43,25 @@ if(!isset($_SESSION['adminEmail'])){
                                     <td><?php echo $invoice['total_Qty']?></td>
                                     <td><?php echo $invoice['total_amount']?></td>
                                     <td><?php echo $invoice['status']?></td>
+                                    <?php
+                                    if($invoice['status']=='pending'){
+                                    ?>
                                     <td>
                                         <form action="email.php" method="post">
-                                    <button name="sendEmail" class="btn btn-sm btn-primary">pending</button>
+                                    <button name="sendEmail" class="btn btn-sm btn-primary"><?php echo $invoice['status']?></button>
                                     <input type="hidden" name="userEmail" value="<?php echo $invoice['u_email']?>">
                                     </form>
                                 </td>
+                                <?php
+                                    }
+                                    
+                                    else{
+                                        ?>
+                                        <td><?php echo $invoice['status']?></td>
+                                        <?php
+                                    }
+                                
+                                    ?>
                                 </tr>
                               
                                <?php
